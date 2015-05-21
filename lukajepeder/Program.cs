@@ -15,16 +15,18 @@ namespace lukajepeder
         {
             var upd = new List<Updatable>();
             var kurac = new List<Drawable>();
-            var window = new RenderWindow(new VideoMode( 800 , 500 ), "Kosor Peder");
+            var window = new RenderWindow(new VideoMode( 800 , 500 ), "Pimpolovac Pre-Nightly");
             window.SetVerticalSyncEnabled(true);
-            var shape = new RectangleShape(new Vector2f(50, 50));
-            shape.Position += new Vector2f(0, 270-64);
-            kurac.Add(shape);
-            var map = new Map(800, 50);
+
+            var shape = new Avengeri(25);
+            var map = new Map(800, 50, shape);
+           
+            
             kurac.Add(map);
             upd.Add(map);
-      
-            shape.Texture = new Texture("pimpolovacx.png");
+            kurac.Add(shape);
+            upd.Add(shape);
+            
 
             while (window.IsOpen)
             {
@@ -32,9 +34,8 @@ namespace lukajepeder
                 window.DispatchEvents();
                 window.Closed += delegate { window.Close(); };
                 window.Clear();
-                shape.Position = new Vector2f((float)Math.Sin(count / 60.0f) * 400.0f + 400, 100.0f);
                 upd.ForEach(u => u.Update(window, count));
-                kurac.ForEach( k => window.Draw(k) );
+                kurac.ForEach(k => window.Draw(k));
                 window.Display();
             }
         }
